@@ -1,0 +1,55 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profiles | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/view_student_profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Student Profiles</h1>
+        <p>View and manage student profiles</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="profiles-grid">
+            {% for profile in profiles %}
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <h2>{{ profile.student.user.username }}</h2>
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+                        {% else %}
+                            <div class="profile-picture-placeholder">👤</div>
+                        {% endif %}
+                    </div>
+                    <div class="profile-details">
+                        <p><strong>🆔 Student ID:</strong> {{ profile.student.student_id }}</p>
+                        <p><strong>📞 Phone Number:</strong> {{ profile.phone_number }}</p>
+                        <p><strong>🏠 Address:</strong> {{ profile.address }}</p>
+                        <p><strong>📝 Bio:</strong> {{ profile.bio }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Back to Home Link -->
+        <div class="action-links">
+            <a href="{% url 'home' %}" class="btn">🏠 Back to Home</a>
+            <a href="{% url 'teacher_afl' %}" class="btn">🏠 Back to Teacher Interface</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

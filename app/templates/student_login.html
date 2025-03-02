@@ -1,0 +1,45 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/student_login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="login-form">
+            <h2>🎓 Student Login</h2>
+            <p>Welcome back! Please log in to access your account.</p>
+
+            <!-- Login Form -->
+            <form action="{% url 'student_login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+
+            <!-- Additional Links -->
+            <div class="auth-links">
+                <p>Don't have an account? <a href="{% url 'student_register' %}">Register here</a></p>
+                <a class="back-link" href="{% url 'home' %}">⬅ Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Registration | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/teacher_register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Teacher Registration</h1>
+        <p>Join us and start your journey today!</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="register-form">
+            <h2>👨‍🏫 Register</h2>
+            <p>Create your account to access all features.</p>
+
+            <!-- Registration Form -->
+            <form action="{% url 'teacher_register' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">👤 Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">🔒 Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacher_id">🆔 Teacher ID:</label>
+                    <input type="text" id="teacher_id" name="teacher_id" placeholder="Enter your Teacher ID" required>
+                </div>
+                <button type="submit" class="btn">Register</button>
+            </form>
+
+            <!-- Back to Home Link -->
+            <div class="action-links">
+                <a href="{% url 'home' %}" class="back-link">⬅ Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

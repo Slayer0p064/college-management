@@ -1,0 +1,63 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/student_profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Student Profile</h1>
+        <p>Update your profile information</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="profile-form">
+            <h2>📝 Update Profile</h2>
+            <p>Keep your profile up-to-date to stay connected.</p>
+
+            <!-- Profile Form -->
+            <form action="{% url 'student_profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" value="{{ user.username }}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="phone_number" placeholder="Phone Number" value="{{ profile.phone_number }}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="address" placeholder="Address" value="{{ profile.address }}" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="student_id" placeholder="Student ID" value="{{ student.student_id }}" readonly required>
+                </div>
+                <div class="form-group">
+                    <textarea name="bio" placeholder="Bio">{{ profile.bio }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="profile_picture">📷 Profile Picture:</label>
+                    <input type="file" name="profile_picture" id="profile_picture">
+                </div>
+                <button type="submit" class="btn">Update Profile</button>
+            </form>
+
+            <!-- Back to Attendance Link -->
+            <div class="action-links">
+                <a href="{% url 'student_afl' %}" class="back-link">⬅ Back to Attendance</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

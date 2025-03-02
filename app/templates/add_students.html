@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Student Upload | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/add_students.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>📂 Bulk Student Upload</h1>
+        <p>Upload a JSON file to register students in bulk.</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Display Messages -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Upload Form -->
+        <form method="post" action="{% url 'bulk_upload_students' %}" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="student_file">📁 Select JSON File:</label>
+                <input type="file" name="student_file" id="student_file" accept=".json" required>
+            </div>
+            <button type="submit" class="btn">📂 Upload JSON</button>
+        </form>
+
+        <!-- JSON Format Instructions -->
+        <div class="instructions">
+            <h3>📌 JSON File Format</h3>
+            <pre>
+[
+    {
+        "user": {
+            "username": "john_doe",
+            "email": "john@example.com",
+            "is_student": true,
+            "is_teacher": false
+        },
+        "student_id": "S001"
+    },
+    {
+        "user": {
+            "username": "jane_smith",
+            "email": "jane@example.com",
+            "is_student": true,
+            "is_teacher": false
+        },
+        "student_id": "S002"
+    }
+]
+            </pre>
+        </div>
+
+        <!-- Action Links -->
+        <div class="action-links">
+            <a href="{% url 'home' %}" class="btn">🏠 Back to Home</a>
+            <a href="{% url 'teacher_afl' %}" class="btn">📋 Back to Teacher Interface</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

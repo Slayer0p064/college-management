@@ -1,0 +1,73 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/student_afl.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Student Attendance</h1>
+        <p>Track your attendance records effortlessly</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="attendance-records">
+            <h2>📅 Your Attendance Records</h2>
+            <div class="student-info">
+                <p><strong>👤 Student Name:</strong> {{ student.user.username }}</p>
+                <p><strong>🆔 Student ID:</strong> {{ student.student_id }}</p>
+            </div>
+
+            <!-- Filter Form -->
+            <form method="get" action="{% url 'student_afl' %}" class="filter-form">
+                <div class="form-group">
+                    <label for="start_date">📅 Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ request.GET.start_date }}">
+                </div>
+                <div class="form-group">
+                    <label for="end_date">📅 End Date:</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ request.GET.end_date }}">
+                </div>
+                <button type="submit" class="btn">Filter</button>
+            </form>
+
+            <!-- Attendance Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>📅 Date</th>
+                        <th>📝 Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendance in attendances %}
+                        <tr>
+                            <td>{{ attendance.date }}</td>
+                            <td>{{ attendance.status }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{% url 'student_profile' %}" class="btn">👤 View Profile</a>
+                <a href="{% url 'home' %}" class="btn">🏠 Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Interface | College Management</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'app/css/teacher_afl.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <h1>Teacher Interface</h1>
+      <p>Manage attendance and student records efficiently</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="attendance-records">
+        <h2>📅 Attendance Records</h2>
+
+        <!-- Filter Form -->
+        <form method="get" action="{% url 'teacher_afl' %}" class="filter-form">
+          <div class="form-group">
+            <label for="date">📅 Filter by Date:</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value="{{ request.GET.date }}"
+            />
+          </div>
+          <button type="submit" class="btn">Filter</button>
+        </form>
+
+        <!-- Attendance Table -->
+        <table>
+          <thead>
+            <tr>
+              <th>🆔 Student ID</th>
+              <th>📅 Date</th>
+              <th>📝 Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for attendance in attendances %}
+            <tr>
+              <td>{{ attendance.student.student_id }}</td>
+              <td>{{ attendance.date }}</td>
+              <td>{{ attendance.status }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <span class="step-links">
+            {% if attendances.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ attendances.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+              Page {{ attendances.number }} of {{attendances.paginator.num_pages }}.
+            </span>
+
+            {% if attendances.has_next %}
+            <a href="?page={{ attendances.next_page_number }}">next</a>
+            <a href="?page={{ attendances.paginator.num_pages }}"
+              >last &raquo;</a
+            >
+            {% endif %}
+          </span>
+        </div>
+
+        <!-- Mark Attendance Section -->
+        <h2>✅ Mark Attendance</h2>
+        <form
+          method="post"
+          action="{% url 'mark_attendance' %}"
+          class="mark-attendance-form"
+        >
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="student_id">👤 Select Student:</label>
+            <select id="student_id" name="student_id" required>
+              <option value="" disabled selected>Select a student</option>
+              {% for student in students %}
+              <option value="{{ student.student_id }}">
+                {{ student.student_id }} - {{ student.user.username }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date">📅 Date:</label>
+            <input type="date" id="date" name="date" required />
+          </div>
+          <div class="form-group">
+            <label for="status">📝 Status:</label>
+            <select id="status" name="status" required>
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="late">Late</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Mark Attendance</button>
+        </form>
+
+        <!-- Action Links -->
+        <div class="action-links">
+          <a href="{% url 'view_student_profiles' %}" class="btn">👥 View Student Profiles</a>
+          <a href="{% url 'home' %}" class="btn">🏠 Back to Home</a>
+          <a href="{% url 'add_students' %}" class="btn">➕ Upload Students</a>
+          <a href="{% url 'teacher_register' %}" class="btn">👤 Add a NewTeacher</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <p>
+        📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a>
+      </p>
+      <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

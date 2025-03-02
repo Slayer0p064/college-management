@@ -1,0 +1,70 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | College Management</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'app/css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>College Management System</h1>
+        <p>Empowering Education, Simplifying Management</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="{% url 'home' %}">🏠 Home</a>
+        <a href="{% url 'student_login' %}">🎓 Student Login</a>
+        <a href="{% url 'teacher_login' %}">👨‍🏫 Teacher Portal</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Announcements Section -->
+        <section class="announcements">
+            <h2>📢 Announcements</h2>
+            <ul>
+                <li>🎓 Welcome to the new semester! Classes start on February 29.</li>
+                <li>📚 New library resources are now available. Check them out!</li>
+                <li>🧪 Science Fair on March 15th. Register now!</li>
+            </ul>
+        </section>
+
+        <!-- Login Sections -->
+        <div class="login-sections">
+            <div class="login-register">
+                <h2>🎓 Student Login</h2>
+                <a href="{% url 'student_login' %}" class="btn">Login</a>
+                <p>New here? <a href="{% url 'student_register' %}">Register now</a></p>
+            </div>
+
+            <div class="login-register">
+                <h2>👨‍🏫 Teacher Portal</h2>
+                <a href="{% url 'teacher_login' %}" class="btn">Enter</a>
+                <p>Welcome to your own Desk!</p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <section class="contact">
+            <h2>📞 Contact Us</h2>
+            <p>If you need assistance, feel free to reach out:</p>
+            <p>📧 Email: <a href="mailto:support@college.edu">support@college.edu</a></p>
+            <p>📞 Phone: (123) 456-7890</p>
+        </section>
+        
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>📧 Contact: <a href="mailto:support@college.edu">support@college.edu</a></p>
+        <p>&copy; 2025 College Management System. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
